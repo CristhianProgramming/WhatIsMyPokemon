@@ -3,7 +3,7 @@ import { SettingInterface } from "../../utils/interfaces/setting.interfaces";
 import * as SettingActions from '../actions/settings.actions'
 
 
-export const customerFeatureKey = 'Settings';
+export const customerFeatureKey = 'settings';
 
 const initialState: SettingInterface = {
     difficult: 0,

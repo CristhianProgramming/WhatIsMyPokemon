@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SettingInterface } from '../utils/interfaces/setting.interfaces';
 import { Store } from '@ngrx/store';
+import { generateRamdomNum } from '../utils/math.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class PokemonService {
 
   constructor(
     private readonly _httpClient: HttpClient,
-    private readonly _store : Store<{setting:SettingInterface}>
+    private readonly _store : Store<any>
   ) { 
-    this._store.select('setting').subscribe((data:SettingInterface)=>{
-      this.actualDifficult = data.difficult * 3;
+    this._store.select(state=>state.settings).subscribe((data:SettingInterface)=>{
+      this.actualDifficult = data.difficult
     })
   }
 
@@ -25,7 +26,7 @@ export class PokemonService {
     }
 
     getRamdomPokemons(){
-      return this._httpClient.get(`${this.baseUrl}?limit=${3 + this.actualDifficult}`)
+      return this._httpClient.get(`${this.baseUrl}?limit=${3 + this.actualDifficult}&offset=${generateRamdomNum(1000)}`)
     }
 
 }
